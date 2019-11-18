@@ -1,0 +1,109 @@
+#grid-container {
+    display: grid;
+    grid-template-columns: 0.4fr 0.4fr 2.2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 0.9fr 1.1fr;
+    grid-template-areas:
+    ". year bitClockYear dy" 
+    ". date bitClockDate dd"
+     ". month bitClockMonth dm"
+      ". hour bitClockHour dh" 
+      ". minute bitClockMinute dmi"
+      ". second bitClockSecond ds"
+       ". milliseconds bitClockMilliSecond dms"
+        ". . . .";
+  }
+  
+  #year { grid-area: year; }
+  
+  #date { grid-area: date; }
+  
+  #month { grid-area: month; }
+  
+  #hour { grid-area: hour; }
+  
+  #minute { grid-area: minute; }
+  
+  #second { grid-area: second; }
+  
+  #milliseconds { grid-area: milliseconds; }
+  
+  #bitClockYear {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockYear;
+  }
+  
+  #bitClockDate {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockDate;
+  }
+  
+  #bitClockMonth {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockMonth;
+  }
+  
+  #bitClockHour {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockHour;
+  }
+  
+  #bitClockMinute {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockMinute;
+  }
+  
+  #bitClockSecond {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockSecond;
+  }
+  
+  #bitClockMilliSecond {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". . . . . . . . . . .";
+    grid-area: bitClockMilliSecond;
+  }
+
+ #decYear{
+   grid-area: dy;
+ }
+  #decMilliseconds     {
+    grid-area:dms ;
+  }
+  #decDate{
+    grid-area: dd ;
+  }
+  #decMonth{
+    grid-area:dm ;
+  }
+  #decHour{
+    grid-area: dh;
+  }
+  #decMinute{
+    grid-area:dmi ;
+  }
+  #decSecond{
+    grid-area: ds ;
+  }
+  #decMilliseconds{
+    grid-area: dms ;
+  }
