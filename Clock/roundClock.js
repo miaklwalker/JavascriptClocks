@@ -1,71 +1,59 @@
-let config = {
-    height:240,
-    width:240,
+const canvas  = document.createElement('canvas');
+const context = canvas.getContext('2d');
+canvas.width = 500
+canvas.height = 540
+document.body.append(canvas);
+function loadImage(url){
+    return new Promise(resolve=>{
+        const image = new Image();
+        image.addEventListener('load',()=>{
+            resolve(image)
+        })
+        image.src = url;
+    })
 }
-const {height,width}=config;
+function listPoints(resolution,radius){
+    let r = radius
+    let cx = 245
+    let cy = 245
+    let toRads = (n)=> n * Math.PI / 180
+    let points = [];
+    for(let i = 270 ; i <630 ; i+=resolution){
+        let x = cx+(r*Math.cos(toRads(i)));
+        let y = cy+(r*Math.sin(toRads(i)));
+        points.push({x,y})
+}
+return points
+}
+export default function roundClock(){
+loadImage('./download.png').then(img=>{
+    let points = listPoints(6,199)
+    let minPoints=listPoints(6,175);
+    let hPoints = listPoints(30,165)
+    setInterval(()=>{        
+        context.drawImage(img,0,0,canvas.width,canvas.height)
+        points.forEach(point=>{context.fillRect(point.x,point.y,10,10)});
+        context.fillStyle ='black';
+        let seconds = new Date().getSeconds();
+        let mins = new Date().getMinutes();
+        let hours = new Date().getHours();
+        context.lineWidth = 2
+    context.beginPath();
+    context.moveTo(245,245);
+    context.lineTo(points[seconds].x,points[seconds].y)
+    context.stroke()
 
-let drawCanvas = ()=>{
-    let bool = false;
-    let canvas
-    let context
-    return()=>{
-if(!bool){
-    bool = true
- canvas = document.createElement('canvas')
-canvas.width = width;
-canvas.height = height;
- context = canvas.getContext('2d');
-document.body.appendChild(canvas);
-return context;
-}else{return context};
-}}
-let increment = (members) => members.forEach(member=>console.log(member));
-let decrement = (members) => members.forEach(member=>member-=1);
-let i = 0;
-let s = 0;
-let m = 0;
-let h = 0;
+    context.lineWidth=4
+    context.beginPath();
+    context.moveTo(245,245);
+    context.lineTo(minPoints[mins].x,minPoints[mins].y)
+    context.stroke()
 
-export default function drawClock(){
-let context = drawCanvas()()
-i < 30 ? s++:s--;
-i < 30 ? m++:m--;
-i < 30 ? h++:h--;
-i===60 ? i = 0 : i;
-i++
-console.log(s,m,h,i);
-
-context.clearRect(0,0,width,height)
-context.fillRect(0,0,width,height);
-
-context.fillStyle='white'
-context.ellipse(width/2,height/2,120,120,0,0,Math.PI*2);
-
-context.fill()
-context.fillStyle ='black'
-
-context.fillRect(115,0,10,20);
-context.fillRect(0,115,20,10);
-context.fillRect(115,220,10,20);
-context.fillRect(220,115,20,10);
-//hour hand
-context.beginPath();
-context.moveTo(width/2,height/2);
-context.lineTo(width/2,30+h);
-context.lineWidth = 5
-context.stroke()
-
-// minute hand
-context.beginPath();
-context.moveTo(width/2,height/2);
-context.lineTo(140,20+m);
-context.lineWidth = 5
-context.stroke()
-
-// second hand
-context.beginPath();
-context.moveTo(width/2,height/2);
-context.lineTo(170,20+s);
-context.lineWidth = 5
-context.stroke()
+    context.lineWidth=8
+    context.beginPath();
+    context.moveTo(245,245);
+    context.lineTo(hPoints[hours].x,hPoints[hours].y)
+    context.stroke()
+})
+})
 }
