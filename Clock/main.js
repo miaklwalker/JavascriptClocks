@@ -1,82 +1,57 @@
-import drawClock from "./roundClock.js";
-// import BoringClock from './boringClock.js';
-// import bitClock from './bitClock.js'
-// import htmlGenerator from './bitClockHTMLGenerator.js'
-// BoringClock();
-// bitClock()
-// setInterval(()=>{
-//     BoringClock()
-//     bitClock()
-// },1000)
+import BoringClock from './boringClock.js';
+import bitClock from './bitClock.js'
+import makeSevenSegmentDisplay from './sevenSegmentClock.js';
+import roundClock from './roundClock.js';
 
-//drawClock();
-
-const canvas  = document.createElement('canvas');
-const context = canvas.getContext('2d');
-canvas.width = 500
-canvas.height = 540
-document.body.append(canvas);
-function loadImage(url){
-    return new Promise(resolve=>{
-        const image = new Image();
-        image.addEventListener('load',()=>{
-            resolve(image)
-        })
-        image.src = url;
-    })
+let values = {
+    0:[true,false,true,true,true,true,true],
+    1:[false,false,false,false,true,false,true],
+    2:[true,true,true,true,false,false,true],
+    3:[true,true,true,false,true,false,true],
+    4:[false,true,false,false,true,true,true],
+    5:[true,true,true,false,true,true,false],
+    6:[true,true,true,true,true,true,false],
+    7:[true,false,false,false,true,false,true],
+    8:[true,true,true,true,true,true,true],
+    9:[true,true,true,false,true,true,true],
 }
-function listPoints(resolution,radius){
-    let r = radius
-    let cx = 245
-    let cy = 245
-    let toRads = (n)=> n * Math.PI / 180
-    let points = [];
-    for(let i = 270 ; i <630 ; i+=resolution){
-        let x = cx+(r*Math.cos(toRads(i)));
-        let y = cy+(r*Math.sin(toRads(i)));
-        points.push({x,y})
+setInterval(()=>{
+   BoringClock()
+   bitClock()
+    roundClock()
+    makeClockRadio()
+},10)
+
+let canvas = document.createElement('canvas');
+let context = canvas.getContext('2d');
+canvas.width = 480
+document.body.appendChild(canvas)
+
+
+function makeClockRadio(){
+    let seconds = new Date().getSeconds();
+    let firstDigit = seconds%10
+    let secondDigit = Math.trunc(seconds/10)
+    let minutes = new Date().getMinutes();
+    let thirdDigit = minutes%10
+    let fourthDigit = Math.trunc(minutes/10)
+    let hours = new Date().getHours();
+    if(hours>12){hours=hours%12}
+    if(hours===0){hours=12}
+    let fifthDigit = hours%10
+    let sixthDigit = Math.trunc(hours/10)
+    context.drawImage(makeSevenSegmentDisplay(0,0)(...values[firstDigit]),400,0)
+    context.drawImage(makeSevenSegmentDisplay(0,0)(...values[secondDigit]),320,0)
+    context.drawImage(makeSevenSegmentDisplay(0,0)(...values[thirdDigit]),240,0)
+    context.drawImage(makeSevenSegmentDisplay(0,0)(...values[fourthDigit]),160,0)
+    context.drawImage(makeSevenSegmentDisplay(0,0)(...values[fifthDigit]),80,0)
+    context.drawImage(makeSevenSegmentDisplay(0,0)(...values[sixthDigit]),0,0)
+
 }
-console.log(points)
-return points
-}
-loadImage('./download.png').then(img=>{
-    let points = listPoints(6,199)
-    let minPoints=listPoints(6,175);
-    let hPoints = listPoints(30,165)
-    setInterval(()=>{        
-        context.drawImage(img,0,0,canvas.width,canvas.height)
-        points.forEach(point=>{context.fillRect(point.x,point.y,10,10)});
-        context.fillStyle ='black';
-        let seconds = new Date().getSeconds();
-        let mins = new Date().getMinutes();
-        let hours = new Date().getHours();
-        context.lineWidth = 2
-    context.beginPath();
-    context.moveTo(245,245);
-    context.lineTo(points[seconds].x,points[seconds].y)
-    context.stroke()
-
-    context.lineWidth=4
-    context.beginPath();
-    context.moveTo(245,245);
-    context.lineTo(minPoints[mins].x,minPoints[mins].y)
-    context.stroke()
-
-    context.lineWidth=8
-    context.beginPath();
-    context.moveTo(245,245);
-    context.lineTo(hPoints[hours].x,hPoints[hours].y)
-    context.stroke()
-})
-})
 
 
 
-/*
-center : 245,245
-12: 245,60
-
-circumference: 2 pi R
 
 
-*/
+
+

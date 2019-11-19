@@ -1,8 +1,14 @@
+*{
+  background-color: dimgray;
+}
+
+
 #grid-container {
     display: grid;
-    grid-template-columns: 0.4fr 0.4fr 2.2fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 0.9fr 1.1fr;
+    grid-template-columns: 0.4fr 0.4fr 1.9fr 1fr;
+    grid-template-rows: 1fr .1fr .1fr .1fr .1fr .1fr .1fr 0.1fr;
     grid-template-areas:
+    ". bc bc ."
     ". year bitClockYear dy" 
     ". date bitClockDate dd"
      ". month bitClockMonth dm"
@@ -10,9 +16,10 @@
       ". minute bitClockMinute dmi"
       ". second bitClockSecond ds"
        ". milliseconds bitClockMilliSecond dms"
-        ". . . .";
   }
-  
+  #boringClock{
+    grid-area: bc;
+  }
   #year { grid-area: year; }
   
   #date { grid-area: date; }
