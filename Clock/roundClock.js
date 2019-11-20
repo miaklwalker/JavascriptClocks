@@ -21,48 +21,59 @@ function listPoints(resolution, radius) {
     return points
 };
 // line {x1,x2,y1,y2}
-function drawHand(lw,pos){
+function drawHand(lw, pos) {
     context.lineWidth = lw
     context.beginPath();
-    context.moveTo(pos.x1,pos.y1);
+    context.moveTo(pos.x1, pos.y1);
     context.lineTo(pos.x2, pos.y2)
     context.stroke()
 }
-export default function roundClock(){
+
+const drawDots = (width) => {
+
+}
+export default function roundClock() {
     let points = listPoints(6, 199)
     let minPoints = listPoints(6, 175);
     let hPoints = listPoints(30, 155);
-    let tinyRadius = listPoints(6,2)
-    context.clearRect(0,0,canvas.width,canvas.height)
+    let tinyRadius = listPoints(6, 2)
+    context.clearRect(0, 0, canvas.width, canvas.height)
 
     context.fillStyle = 'black';
-points.forEach((point,index) =>{
-    if(index%15===0){
-        context.beginPath()
-        context.ellipse(point.x,point.y,8,8,0,0,Math.PI*2)
-        context.closePath();
-        context.fill()
-    }else if(index%5===0){        
-        context.beginPath()
-        context.ellipse(point.x,point.y,5,5,0,0,Math.PI*2)
-        context.closePath();
-        context.fill()
-    }else{
-        context.beginPath()
-        context.ellipse(point.x,point.y,2,2,0,0,Math.PI*2)
-        context.closePath();
-        context.fill()
-    }
-});
-let seconds = new Date().getSeconds();
-let mins = new Date().getMinutes();
-let hours = new Date().getHours();
-hours = hours > 12 ? hours%12:hours;
-drawHand(2,{x1:tinyRadius[seconds].x,x2:points[seconds].x,y1:tinyRadius[seconds].x ,y2:points[seconds].y})
-drawHand(6,{x1:tinyRadius[mins].x,x2:minPoints[mins].x,y1:tinyRadius[mins].x ,y2:minPoints[mins].y})
-drawHand(10,{x1:tinyRadius[hours].x,x2:hPoints[hours].x,y1:tinyRadius[hours].x ,y2:hPoints[hours].y})
-context.beginPath();
-context.ellipse(canvas.width/2-4,canvas.height/2-25,10,10,0,0,Math.PI*2)
-context.closePath();
-context.fill()
+    points.forEach((point, index) => {
+        let fillDots = (width) => {
+            context.beginPath()
+            context.ellipse(point.x, point.y, width, width, 0, 0, Math.PI * 2)
+            context.closePath();
+            context.fill()
+        }
+        index % 15 === 0?fillDots(8):
+        index % 5 === 0 ?fillDots(5):fillDots(2)
+    });
+    let seconds = new Date().getSeconds();
+    let mins = new Date().getMinutes();
+    let hours = new Date().getHours();
+    hours = hours > 12 ? hours % 12 : hours;
+    drawHand(2, {
+        x1: tinyRadius[seconds].x,
+        x2: points[seconds].x,
+        y1: tinyRadius[seconds].x,
+        y2: points[seconds].y
+    })
+    drawHand(6, {
+        x1: tinyRadius[mins].x,
+        x2: minPoints[mins].x,
+        y1: tinyRadius[mins].x,
+        y2: minPoints[mins].y
+    })
+    drawHand(10, {
+        x1: tinyRadius[hours].x,
+        x2: hPoints[hours].x,
+        y1: tinyRadius[hours].x,
+        y2: hPoints[hours].y
+    })
+    context.beginPath();
+    context.ellipse(canvas.width / 2 - 4, canvas.height / 2 - 25, 10, 10, 0, 0, Math.PI * 2)
+    context.closePath();
+    context.fill()
 }
