@@ -29,9 +29,7 @@ function drawHand(lw, pos) {
     context.stroke()
 }
 
-const drawDots = (width) => {
 
-}
 export default function roundClock() {
     let points = listPoints(6, 199)
     let minPoints = listPoints(6, 175);
@@ -47,8 +45,9 @@ export default function roundClock() {
             context.closePath();
             context.fill()
         }
-        index % 15 === 0?fillDots(8):
-        index % 5 === 0 ?fillDots(5):fillDots(2)
+        index % 15=== 0?fillDots(8):
+        index % 5 === 0?fillDots(5):
+                        fillDots(2);
     });
     let seconds = new Date().getSeconds();
     let mins = new Date().getMinutes();

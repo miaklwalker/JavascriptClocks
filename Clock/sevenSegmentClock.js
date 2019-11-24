@@ -16,8 +16,8 @@ function makeTop(x,y,width,height){
     context.fill();
 }
 
-const toRad = (n)=>n*(Math.PI/180)
 
+let toRad = (n) => n * Math.PI / 180
 
 export default function makeSevenSegmentDisplay(x,y){
     context.fillStyle = 'black'
